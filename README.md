@@ -17,8 +17,18 @@ To define your own environment, all you need is a function that samples rewards:
 
 ```python
 def sample(action): 
-  reward = # code to get reward from the environment
+  reward = # code to get reward from the environment based on the given action
   return reward
 ```
-If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret. 
+If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret:
 
+```python
+class CustomEnvironment:
+  def __init__(self, parameters, expectations): 
+    self.parameters = parameters
+    self.expectations = expectations
+    
+  def samples(self, action): 
+    reward = function(parameters[action])
+    return reward
+```
