@@ -21,7 +21,7 @@ def sample(action):
   Input: 
     action (int): selection of the agent
   '''
-  # insert code to get reward from the environment based on the given action
+  # insert code to get a reward for the given action
   return reward
 ```
 If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret:
@@ -34,6 +34,9 @@ class Custom:
       parameters (dict): each key is an integer corresponding to an action
                          and values must contain parameters used by sample
                          function to generate the reward for the action
+
+      expectations (dict): each key is an integer correspoding to an action
+                           and values are the corresponding expected values
     '''
     self.parameters = parameters
     self.expectations = expectations
@@ -43,6 +46,5 @@ class Custom:
     Input: 
       action (int): selection of the agent
     '''
-    reward = function(parameters[action])
-    return reward
+    return function(parameters[action])
 ```
