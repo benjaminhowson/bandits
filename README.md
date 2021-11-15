@@ -22,6 +22,13 @@ def sample(action):
   # insert code to get a reward for the given action
   return reward
 ```
+
+# Using Bandits
+Once there is a function for sampling rewards, it is very easy to setup and run the bandit algorithm. All you need is the following lines of code:
+
+
+
+# Custom Experiments
 If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret:
 
 ```python
@@ -46,7 +53,5 @@ class Custom:
     '''
     return function(parameters[action])
 ```
-
-# Using Bandits
 
 
