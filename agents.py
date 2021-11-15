@@ -64,10 +64,15 @@ class UCB(Agent):
         self.initialise() # initialise the algorithm parameter dictionary 
 
     def run(self): 
+        '''
+        Output: 
+            returns the history dictionary
+        '''
         for time in range(1, self.nsamples + 1):
             action = self.policy(time)
             reward = self.sample(action)
             self.update(time, action, reward)
+        return self.history
 
     def policy(self, time): 
         ''' 
@@ -130,10 +135,16 @@ class EGreedy(Agent):
     
 
     def run(self): 
+        '''
+        Output: 
+            returns the history dictionary
+        '''
         for time in range(1, self.nsamples + 1):
             action = self.policy()
             reward = self.sample(action)
             self.update(time, action, reward)
+        
+        return self.history
     
     def policy(self): 
         ''' 
@@ -306,10 +317,15 @@ class TS(Agent):
         self.initialise()
 
     def run(self): 
+        '''
+        Output: 
+            returns the history dictionary
+        '''
         for time in range(1, self.nsamples + 1):
             action = self.policy()
             reward = self.sample(action)
             self.update(time, action, reward)
+        return self.history
     
     def policy(self): 
         ''' 
