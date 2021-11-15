@@ -13,7 +13,7 @@ However, you have no information about any of the slot machines. How do you find
 # Using Bandits
 
 ## Custom Environments
-To define the bandit, you need a function that samples rewards from the environment. Lets code up a simple environment with two actions. The first and second action will have expected rewards equal to 0.5 and 0.8, respectively:
+To define the bandit, you need a function that samples rewards from the environment. Lets code up a simple environment with two actions. Suppose there are two slot machines at the casino; the first has an expected rewards equal to: 0.5; and the seconand has an expected reward equal to: 0.8
 
 ```python
 def sample(action): 
@@ -30,8 +30,6 @@ def sample(action):
   else: 
     # code to raise errors upon selection an invalid action
     raise ValueError('Error: only two available actions')
-  
-  return reward
 ```
 
 ## Agents
