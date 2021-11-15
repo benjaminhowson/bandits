@@ -35,6 +35,8 @@ def sample(action):
 ## Agents
 Once there is a function for sampling rewards, it is very easy to setup and run the bandit algorithm. All you need is the following lines of code:
 ```python
+from agents import *
+
 # setup the standard upper confidence bound algorithm to select one-hundred actions
 agent = UCB1(sample = sample(), nactions = 2, nsamples = 100)
 
