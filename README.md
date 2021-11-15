@@ -12,7 +12,7 @@ However, you have no information about any of the slot machines. How do you find
 
 # Using Bandits
 
-## Custom Environments
+## Sample Function
 To define the bandit, you need a function that samples rewards from the environment. Lets code up a simple environment with two actions. Suppose there are two slot machines at the casino; the first has an expected rewards equal to: 0.5; and the seconand has an expected reward equal to: 0.8
 
 ```python
@@ -51,16 +51,27 @@ The variable ```history``` is a dictionary containing the ordered sequence of ac
 # Experiments
 
 ## Bernoulli Bandit Experiment
-Included is a standard benchmark environment for testing multi-armed bandit algorithms. Consider the example above, where there are two slot machines; one that gives a reward with probability 0.5 and the other that gives a reward with probability 0.8. We can easily compare the algorithms using the ```experiment()``` function.
+Included is a standard benchmark environment for testing multi-armed bandit algorithms. Consider the example above, where there are two slot machines; one that gives a reward with probability 0.5 and the other that gives a reward with probability 0.8. We can easily compare various algorithms using the ```experiment()``` function.
 ```python
 from experiments import *
 from environments import *
 
-# setup the standard upper confidence bound algorithm to select one-hundred actions
-agent = UCB1(sample = sample, nactions = 2, nsamples = 100)
+parameters = {1: 0.5, 2: 0.8} # distributional parameters for each action
+expectations = {1: 0.5, 2: 0.8} # expected reward for each action
 
-# let the agent interact with the environment by selecting one-hundred actions
-history = agent.run()
+environment = Bernoulli(parameters, expectations) # run the experiment
+
+# compare thompson sampling to various upper confidence bound strategies
+learners = {'TS': TS(sample = environment.sample, nactions = 2, nsamples = 1000), 
+            'UCB': UCB1(sample = environment.sample, nactions = 2, nsamples = 1000), 
+            'MOSS': MOSS(sample = environment.sample, nactions = 2, nsamples = 1000), 
+            'AOUCB': AOUCB(sample = environment.sample, nactions = 2, nsamples = 1000)}
+
+# perform the experiment using monte-carlo simulation using one-hundred iterations
+output = experiment(iterations = 100, environment = environment, learners = learners)
+
+# visualise the results
+plot(data = output)
 ```
 
 
