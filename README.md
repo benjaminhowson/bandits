@@ -48,7 +48,23 @@ The variable ```history``` is a dictionary containing the ordered sequence of ac
 
 
 
-# Custom Experiments
+# Experiments
+
+## Bernoulli Bandit Experiment
+Included is a standard benchmark environment for testing multi-armed bandit algorithms. Consider the example above, where there are two slot machines; one that gives a reward with probability 0.5 and the other that gives a reward with probability 0.8. We can easily compare the algorithms using the ```experiment()``` function.
+```python
+from experiments import *
+from environments import *
+
+# setup the standard upper confidence bound algorithm to select one-hundred actions
+agent = UCB1(sample = sample, nactions = 2, nsamples = 100)
+
+# let the agent interact with the environment by selecting one-hundred actions
+history = agent.run()
+```
+
+
+## Custom Experiments
 If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret:
 
 ```python
