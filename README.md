@@ -12,4 +12,10 @@ However, you have no information about any of the slot machines. How do you find
 
 # Using Bandits
 
-# Environment Class Template
+# Custom Environments
+To define your own environment, all you need is a function that samples rewards: 
+'''python
+def sample(action): 
+  reward = # code to get reward from the environment
+  return reward
+'''
