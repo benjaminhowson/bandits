@@ -10,8 +10,6 @@ Consider entering a casino. In front of you are five slot machines. You want to 
 
 However, you have no information about any of the slot machines. How do you find the one with the highest expected reward while losing the least amount of money in the process? This problem is what bandit algorithms attempt to solve. 
 
-# Using Bandits
-
 # Custom Environments
 To define your own environment, all you need is a function that samples rewards: 
 
@@ -48,3 +46,7 @@ class Custom:
     '''
     return function(parameters[action])
 ```
+
+# Using Bandits
+
+
