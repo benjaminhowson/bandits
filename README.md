@@ -21,13 +21,14 @@ def sample(action):
   Input: 
     action (int): selection of the agent
   '''
-  
-  # code to get a reward for the first action
   if action == 1: 
+    # code to get a reward for the first action
     return np.random.binomial(1, 0.5, 1)[0]
   elif action == 2: 
+    # code to get a reward for the second action
     return np.random.binomial(1, 0.8, 1)[0]
   else: 
+    # code to raise errors upon selection an invalid action
     raise ValueError('Error: only two available actions')
   
   return reward
