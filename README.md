@@ -2,7 +2,7 @@
 The Bandits package is an easy-to-use framework for testing and comparing various bandit algorithms. Currently, the package implements numerous provably efficient algorithms for the problem, and more are to come! The Bernoulli environment included is a simple benchmark that allows one to experiment with the algorithms and investigate their performance. However, defining a custom environment is easy; see the environment class template in the final section!
 
 ## Algorithms
-Currently, implements the following algorithms
+Currently, the package implements the following algorithms
 * UCB1
 * MOSS
 * AOUCB
@@ -20,9 +20,10 @@ Consider entering a casino. In front of you are five slot machines. You want to 
 However, you have no information about any of the slot machines. How do you find the one with the highest expected reward while losing the least amount of money in the process? This problem is what bandit algorithms attempt to solve. 
 
 # Using Bandits
-
 ## Sample Function
-To define the bandit, you need a function that samples rewards from the environment. Lets code up a simple environment with two actions. Suppose there are two slot machines at the casino; the first has an expected rewards equal to: 0.5; and the seconand has an expected reward equal to: 0.8
+To define the bandit, all you need is a function that samples a reward for each action. 
+
+Below is an example of a simple environment with two actions whose expected rewards are equal to 0.5 and 0.8:
 
 ```python
 def sample(action): 
@@ -42,7 +43,7 @@ def sample(action):
 ```
 
 ## Agents
-Once there is a function for sampling rewards, it is very easy to setup and run the bandit algorithm. All you need is the following lines of code:
+Once there is a function for sampling rewards, it is easy to set up and run the bandit algorithm. All you need is the following lines of code:
 ```python
 from agents import *
 
@@ -52,7 +53,7 @@ agent = UCB1(sample = sample, nactions = 2, nsamples = 100)
 # let the agent interact with the environment by selecting one-hundred actions
 history = agent.run()
 ```
-The variable ```history``` is a dictionary containing the ordered sequence of actions and the corresponding rewards. Also, ```history``` is a class variable, so one can access it via: ```agent.history```
+The variable ```history``` is a dictionary containing the ordered sequence of actions and the corresponding rewards. Also, ```history``` is a class variable, meaning you can access it via: ```agent.history```
 
 
 
@@ -60,7 +61,9 @@ The variable ```history``` is a dictionary containing the ordered sequence of ac
 # Experiments
 
 ## Bernoulli Bandit Experiment
-Included is a standard benchmark environment for testing multi-armed bandit algorithms. Consider the example above, where there are two slot machines; one that gives a reward with probability 0.5 and the other that gives a reward with probability 0.8. We can easily compare various algorithms using the ```experiment()``` function.
+Included is a standard benchmark environment for testing multi-armed bandit algorithms. Consider the example above; an environment with two actions whose reward distributions are: Bernoulli(0.5) and Bernoulli(0.8), respectively. 
+
+We can compare various algorithms using the ```experiment()``` function.
 ```python
 from experiments import *
 from environments import *
@@ -91,7 +94,7 @@ plot(data = output, width = 0.5)
 
 
 ## Custom Experiments
-If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret:
+If you would like to run simulations using different distributions and make use of: ```experiment()```  and ```plot()```, you must create a class using the following template:
 
 ```python
 class Custom:
@@ -99,10 +102,10 @@ class Custom:
     '''
     Input: 
       parameters (dict): each key is an integer corresponding to an action
-                         and values must contain parameters used by sample
+                         and values must contain parameters used by the
                          function to generate the reward for the action
 
-      expectations (dict): each key is an integer correspoding to an action
+      expectations (dict): each key is an integer corresponding to an action
                            and values are the corresponding expected values
     '''
     self.parameters = parameters
@@ -115,5 +118,6 @@ class Custom:
     '''
     return function(parameters[action])
 ```
+We refer the user to the ```environments.py``` file of this repository for the Bernoulli bandit environment implementation using the above template.
 
 
