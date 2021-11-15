@@ -75,7 +75,7 @@ plot(data = output)
 ```
 
 <p align="center">
-  <img src="images/experiments.png" />
+  <img src="images/experiment.png" />
 </p>
 
 
