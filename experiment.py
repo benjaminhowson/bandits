@@ -5,6 +5,20 @@ import matplotlib.pyplot as plt
 
 
 def experiment(iterations, environment, learners): 
+    '''
+    Input: 
+        iterations (int): number of monte-carlo experiments
+        environment (class): parameterised environment class 
+        learners (dict): each key is the name of the algorithms and
+                         the values are fully initialised agents
+
+    Output: 
+        output (dict): each key corresponds to one of the learners and
+                       the values are arrays containing the average 
+                       empirical cumulative regret and its standard
+                       deviation
+    
+    '''
     mu = environment.expectations
     k = len(mu.keys()); opt = max(mu, key = mu.get)
 
@@ -32,7 +46,12 @@ def experiment(iterations, environment, learners):
         
     return output
 
-def plot(data): 
+def plot(data, zvalue = 1.0): 
+    '''
+    Input: 
+        data (dict): output from the experiments function
+        zvalue (int): defines the width of the confidence intervals
+    '''
     fig, ax = plt.subplots(nrows = 1, ncols = 1)
     cols = ['tab:blue', 'tab:orange', 'tab:green', 'tab:red', 'tab:purple', 
             'tab:brown', 'tab:pink', 'tab:grey', 'tab:olive', 'tab:cyan']
@@ -40,7 +59,7 @@ def plot(data):
     for col, learner in enumerate(data.keys()): 
         std = np.array(data[learner]['std'])
         mean = np.array(data[learner]['mean'])
-        upper = mean + std; lower = mean - std
+        upper = mean + zvalue*std; lower = mean - zvalue*std
 
         time = np.array([t + 1 for t in range(std.shape[0])])
         ax.plot(time, mean, c = cols[col], label = learner)
@@ -55,6 +74,21 @@ def plot(data):
 
 
 
+parameters = {1: 0.5, 2: 0.8} # distributional parameters for each action
+expectations = {1: 0.5, 2: 0.8} # expected reward for each action
 
+environment = Bernoulli(parameters, expectations) # run the experiment
+
+# compare thompson sampling to various upper confidence bound strategies
+learners = {'TS': TS(sample = environment.sample, nactions = 2, nsamples = 1000), 
+            'UCB': UCB1(sample = environment.sample, nactions = 2, nsamples = 1000), 
+            'MOSS': MOSS(sample = environment.sample, nactions = 2, nsamples = 1000), 
+            'AOUCB': AOUCB(sample = environment.sample, nactions = 2, nsamples = 1000)}
+
+# perform the experiment using monte-carlo simulation using one-hundred iterations
+output = experiment(iterations = 100, environment = environment, learners = learners)
+
+# visualise the results
+plot(data = output)
 
     
