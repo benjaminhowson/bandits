@@ -74,7 +74,10 @@ output = experiment(iterations = 100, environment = environment, learners = lear
 plot(data = output)
 ```
 
-![graph](images/experiments.png)
+<p align="center">
+  <img src="images/experiments.png" />
+</p>
+
 
 ## Custom Experiments
 If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret:
