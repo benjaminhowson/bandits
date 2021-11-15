@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 
 
 def experiment(iterations, environment, learners): 
-    p = environment.probabilities
-    k = len(p.keys()); opt = max(p, key = p.get)
+    mu = environment.expectations
+    k = len(mu.keys()); opt = max(mu, key = mu.get)
 
     performance = {l: np.zeros(shape = (learners[l].nsamples, iterations)) for l in learners.keys()}
 
@@ -20,7 +20,7 @@ def experiment(iterations, environment, learners):
                 else: previous = performance[learner][t - 1, iter]
 
                 action = agent.history['action'][t]
-                regret = p[opt] - p[action]
+                regret = mu[opt] - mu[action]
                 performance[learner][t, iter] = previous + regret
             
             learners[learner].reset()
