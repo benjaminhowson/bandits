@@ -46,7 +46,7 @@ def experiment(iterations, environment, learners):
         
     return output
 
-def plot(data, zvalue = 1.0): 
+def plot(data, width = 1.0): 
     '''
     Input: 
         data (dict): output from the experiments function
@@ -59,7 +59,7 @@ def plot(data, zvalue = 1.0):
     for col, learner in enumerate(data.keys()): 
         std = np.array(data[learner]['std'])
         mean = np.array(data[learner]['mean'])
-        upper = mean + zvalue*std; lower = mean - zvalue*std
+        upper = mean + width*std; lower = mean - width*std
 
         time = np.array([t + 1 for t in range(std.shape[0])])
         ax.plot(time, mean, c = cols[col], label = learner)
