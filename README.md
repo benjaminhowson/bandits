@@ -38,7 +38,7 @@ Once there is a function for sampling rewards, it is very easy to setup and run 
 from agents import *
 
 # setup the standard upper confidence bound algorithm to select one-hundred actions
-agent = UCB1(sample = sample(), nactions = 2, nsamples = 100)
+agent = UCB1(sample = sample, nactions = 2, nsamples = 100)
 
 # let the agent interact with the environment by selecting one-hundred actions
 history = agent.run()
