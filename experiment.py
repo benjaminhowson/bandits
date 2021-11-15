@@ -73,22 +73,4 @@ def plot(data, zvalue = 1.0):
     plt.show()
 
 
-
-parameters = {1: 0.5, 2: 0.8} # distributional parameters for each action
-expectations = {1: 0.5, 2: 0.8} # expected reward for each action
-
-environment = Bernoulli(parameters, expectations) # run the experiment
-
-# compare thompson sampling to various upper confidence bound strategies
-learners = {'TS': TS(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'UCB': UCB1(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'MOSS': MOSS(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'AOUCB': AOUCB(sample = environment.sample, nactions = 2, nsamples = 1000)}
-
-# perform the experiment using monte-carlo simulation using one-hundred iterations
-output = experiment(iterations = 100, environment = environment, learners = learners)
-
-# visualise the results
-plot(data = output)
-
     
