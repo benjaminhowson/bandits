@@ -1,4 +1,3 @@
-from os import environ
 from agents import *
 from environments import *
 
@@ -34,7 +33,8 @@ def experiment(iterations, environment, learners):
 
 nsamples = 1000
 iterations = 100
-environment = Bernoulli({1: 0.5, 2: 0.8, 3: 0.2})
+parameters = {1: 0.5, 2: 0.8, 3: 0.2}
+environment = Bernoulli(parameters, parameters)
 learners = {'TS': TS(sample = environment.sample, nactions = 3, nsamples = nsamples), 
             'UCB': UCB1(sample = environment.sample, nactions = 3, nsamples = nsamples)}
 
