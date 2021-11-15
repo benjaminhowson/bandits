@@ -14,8 +14,11 @@ However, you have no information about any of the slot machines. How do you find
 
 # Custom Environments
 To define your own environment, all you need is a function that samples rewards: 
-'''python
+
+```python
 def sample(action): 
   reward = # code to get reward from the environment
   return reward
-'''
+```
+If you would like to run your own simulations and use the experiments function, you must create a class that stores the expected reward of each action so that one can plot the regret. 
+
