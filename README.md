@@ -1,6 +1,15 @@
 # Bandits
 The Bandits package is an easy-to-use framework for testing and comparing various bandit algorithms. Currently, the package implements numerous provably efficient algorithms for the problem, and more are to come! The Bernoulli environment included is a simple benchmark that allows one to experiment with the algorithms and investigate their performance. However, defining a custom environment is easy; see the environment class template in the final section!
 
+## Algorithms
+Currently, implements the following algorithms
+* UCB1
+* MOSS
+* AOUCB
+* ADA-UCB
+* Epsilon-Greedy
+* Thompson Sampling (Bernoulli rewards only)
+
 # Problem Setting
 Consider entering a casino. In front of you are five slot machines. You want to leave the casino with as much money as possible. It follows that you would like to find which of the five slot machines, on average, gives the highest reward.
 
