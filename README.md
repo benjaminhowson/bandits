@@ -41,8 +41,9 @@ from agents import *
 agent = UCB1(sample = sample(), nactions = 2, nsamples = 100)
 
 # let the agent interact with the environment by selecting one-hundred actions
-agent.run()
+history = agent.run()
 ```
+The variable ```history``` is a dictionary containing the ordered sequence of actions and the corresponding rewards. Also, ```history``` is a class variable, so one can access it via: ```agent.history```
 
 
 
