@@ -81,7 +81,8 @@ learners = {'TS': TS(sample = environment.sample, nactions = 2, nsamples = 1000)
 output = experiment(iterations = 100, environment = environment, learners = learners)
 
 # visualise the results
-plot(data = output)
+plot(data = output, width = 0.5)
+
 ```
 
 <p align="center">
