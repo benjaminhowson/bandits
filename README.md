@@ -10,8 +10,10 @@ Consider entering a casino. In front of you are five slot machines. You want to 
 
 However, you have no information about any of the slot machines. How do you find the one with the highest expected reward while losing the least amount of money in the process? This problem is what bandit algorithms attempt to solve. 
 
-# Custom Environments
-To define your own environment, all you need is a function that samples rewards: 
+# Using Bandits
+
+## Custom Environments
+To define the bandit, you need a function that samples rewards from the environment. Lets code up a simple environment with two actions. The first and second action will have expected rewards equal to 0.5 and 0.8, respectively:
 
 ```python
 def sample(action): 
@@ -19,12 +21,25 @@ def sample(action):
   Input: 
     action (int): selection of the agent
   '''
-  # insert code to get a reward for the given action
+  
+  # code to get a reward for the first action
+  if action == 1: 
+    return np.random.binomial(1, 0.5, 1)[0]
+  elif action == 2: 
+    return np.random.binomial(1, 0.8, 1)[0]
+  else: 
+    raise ValueError('Error: only two available actions')
+  
   return reward
 ```
 
-# Using Bandits
+## Agents
 Once there is a function for sampling rewards, it is very easy to setup and run the bandit algorithm. All you need is the following lines of code:
+```python
+# setup and run the standard upper confidence bound algorithm
+agent = UCB1(sample = sample(), nactions = 2, nsamples = 100)
+```
+
 
 
 
