@@ -2,13 +2,14 @@
 The Bandits package is an easy-to-use framework for testing and comparing various bandit algorithms. Currently, the package implements numerous provably efficient algorithms for the problem, and more are to come! The Bernoulli environment included is a simple benchmark that allows one to experiment with the algorithms and investigate their performance. However, defining a custom environment is easy; see the environment class template in the final section!
 
 ## Algorithms
-Currently, the package implements the following algorithms
-* UCB1
-* MOSS
-* AOUCB
-* ADA-UCB
-* Epsilon-Greedy
-* Thompson Sampling (Bernoulli rewards only)
+Currently, the package implements the following algorithms:
+* ```UCB1(sample, nactions)``` (classic upper confidence bound algorithm)
+* ```MOSS(sample, nactions)``` (minimax optimial in the stochastic case algorithm) 
+* ```AOUCB(sample, nactions)``` (asymptotically optimal upper confidence bound algorithm)
+* ```ADA(sample, nactions)``` (adaptive upper confidence bound algorithm)
+* ```BTS(sample, nactions)``` (Thompson sampling algorithm for Bernoulli bandits)
+* ```EG(sample, nactions, epsilon)``` (epsilon-greedy algorithm)
+
 
 # Problem Setting
 Consider entering a casino. In front of you are five slot machines. You want to leave the casino with as much money as possible. It follows that you would like to find which of the five slot machines, on average, gives the highest reward.
@@ -26,17 +27,23 @@ To define the bandit, all you need is a function that samples a reward for each 
 Below is an example of a simple environment with two actions whose expected rewards are equal to 0.5 and 0.8:
 
 ```python
-def sample(action): 
+def sample(time, action): 
   '''
-  Input: 
-    action (int): selection of the agent
+  Parameters
+  ----------
+  time (int) - time of action
+  action (int) - selection of the agent
+  
+  Output
+  ------
+  feedback (dict): {'time': [], 'action': [], 'reward': []}
   '''
   if action == 1: 
-    # code to get a reward for the first action
-    return np.random.binomial(1, 0.5, 1)[0]
+    r = np.random.binomial(1, 0.5, 1)[0]
+    feedback = {'time': [time], 'action': [action], 'reward': [r]}
   elif action == 2: 
-    # code to get a reward for the second action
-    return np.random.binomial(1, 0.8, 1)[0]
+    r = np.random.binomial(1, 0.8, 1)[0]
+    feedback = {'time': [time], 'action': [action], 'reward': [r]}
   else: 
     # code to raise errors upon selection an invalid action
     raise ValueError('Error: only two available actions')
@@ -45,18 +52,16 @@ def sample(action):
 ## Agents
 Once there is a function for sampling rewards, it is easy to set up and run the bandit algorithm. All you need is the following lines of code:
 ```python
-from agents import *
+import agents.ucb as ucb
+from agents.ucb import *
 
 # setup the standard upper confidence bound algorithm to select one-hundred actions
-agent = UCB1(sample = sample, nactions = 2, nsamples = 100)
+agent = ucb.UCB1(sample = sample, nactions = 2)
 
 # let the agent interact with the environment by selecting one-hundred actions
-history = agent.run()
+history = agent.run(nsamples = 100, reset = False)
 ```
-The variable ```history``` is a dictionary containing the ordered sequence of actions and the corresponding rewards. Also, ```history``` is a class variable, meaning you can access it via: ```agent.history```
-
-
-
+The variable ```history``` is a dictionary containing the ordered sequence of actions. Also, ```history``` is a class variable, meaning you can access it via: ```agent.history```
 
 # Experiments
 
@@ -65,26 +70,31 @@ Included is a standard benchmark environment for testing multi-armed bandit algo
 
 We can compare various algorithms using the ```experiment()``` function.
 ```python
+import agents.eg as eg
+import agents.ts as ts
+import agents.ucb as ucb
+
 from experiments import *
 from environments import *
 
-parameters = {1: 0.5, 2: 0.8} # distributional parameters for each action
-expectations = {1: 0.5, 2: 0.8} # expected reward for each action
+nsamples = 1000
+niterations = 100
 
-environment = Bernoulli(parameters, expectations) # create bernoulli bandit environment
+parameters = {1: 0.5, 2: 0.8}
+expectations = {1: 0.5, 2: 0.8}
 
-# compare thompson sampling to various upper confidence bound strategies
-learners = {'TS': TS(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'UCB': UCB1(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'MOSS': MOSS(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'AOUCB': AOUCB(sample = environment.sample, nactions = 2, nsamples = 1000), 
-            'ADA-UCB': ADA(sample = environment.sample, nactions = 2, nsamples = 1000)}
+environment = Bernoulli(parameters, expectations)
 
-# perform the experiment using monte-carlo simulation using one-hundred iterations
-output = experiment(iterations = 100, environment = environment, learners = learners)
+learners = {
+    'TS': ts.BTS(sample = environment.sample, nactions = 2),
+    'UCB': ucb.UCB1(sample = environment.sample, nactions = 2),
+    'MOSS': ucb.MOSS(sample = environment.sample, nactions = 2),
+    'AOUCB': ucb.AOUCB(sample = environment.sample, nactions = 2), 
+    'ADA-UCB': ucb.ADA(sample = environment.sample, nactions = 2)}
 
-# visualise the results
-plot(data = output, width = 0.5)
+results = experiment(learners, nsamples, niterations, environment)
+
+plot(results, width = 0.5)
 
 ```
 
@@ -100,23 +110,26 @@ If you would like to run simulations using different distributions and make use 
 class Custom:
   def __init__(self, parameters, expectations): 
     '''
-    Input: 
-      parameters (dict): each key is an integer corresponding to an action
-                         and values must contain parameters used by the
-                         function to generate the reward for the action
-
-      expectations (dict): each key is an integer corresponding to an action
-                           and values are the corresponding expected values
+    Parameters
+    ----------
+    parameters (dict) - {1: kwargs, ..., K: kwargs}
+    expectations (dict) - {1: mean, ..., K: mean}
     '''
     self.parameters = parameters
     self.expectations = expectations
     
-  def samples(self, action): 
+  def samples(self, time, action): 
     '''
-    Input: 
-      action (int): selection of the agent
+    Parameters
+    ----------
+    time (int) - time of action
+    action (int) - selection of the agent
+    
+    Output
+    ------
+    feedback (dict): {'time': [], 'action': [], 'reward': []}
     '''
-    return function(parameters[action])
+    pass
 ```
 We refer the user to the ```environments.py``` file of this repository for the Bernoulli bandit environment implementation using the above template.
 
