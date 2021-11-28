@@ -45,7 +45,7 @@ def plot(data, width = 1.0):
     data (dict) - output from the experiments function
     zvalue (int) - defines the width of the confidence intervals
     '''
-    fig, ax = plt.subplots(nrows = 1, ncols = 1, figsize = (12, 12))
+    fig, ax = plt.subplots(nrows = 1, ncols = 1, figsize = (12, 9))
     cols = ['tab:blue', 'tab:orange', 'tab:green', 
             'tab:red', 'tab:purple', 'tab:brown', 
             'tab:pink', 'tab:grey', 'tab:olive', 
@@ -62,8 +62,8 @@ def plot(data, width = 1.0):
                         color = cols[col], 
                         alpha = 0.15) 
         
-    ax.set_ylabel('Cumulative Regret')
-    ax.set_xlabel('Time')
+    ax.set_ylabel('Cumulative Regret', fontsize = 12)
+    ax.set_xlabel('Time', fontsize = 12)
 
     plt.legend(frameon = False, loc = 'upper left')
     plt.show()
