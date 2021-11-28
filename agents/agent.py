@@ -30,28 +30,23 @@ class Agent:
         reset (bool) - indicate whether to reset upon finishing
         '''
         self.nsamples = nsamples
+        self.history['reward'] = [float('NaN')]*nsamples
+
         for time in range(1, nsamples + 1):
             action = self.policy(time) # select an action
             feedback = self.sample(time, action) # observe feedback
 
-            self.update_history(time, action) # update history
             self.update_parameters(feedback) # update parameters
+            self.update_history(time, action, feedback) # update history
 
         if reset:
             history = self.history 
             self.initialise()
             return history
+        else: 
+            return self.history
 
-
-    def sort_history(self): 
-        '''
-        Description
-        -----------
-        sorts all lists in the history dictionary according to time
-        '''
-        pass
-
-    def update_history(self, time, action): 
+    def update_history(self, time, action, feedback): 
         '''
         Description
         -----------
@@ -59,7 +54,12 @@ class Agent:
 
         Parameters
         ----------
+        time (int) - time of action
+        action (int) - selection of the agent
         feedback (dict) - {'time': [], 'action': [], 'reward': []}
         '''
         self.history['time'].append(time)
         self.history['action'].append(action)
+        for idx, t in enumerate(feedback['time']): 
+            reward = feedback['reward'][idx]
+            self.history['reward'][t - 1] = reward
