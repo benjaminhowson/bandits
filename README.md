@@ -3,12 +3,12 @@ The Bandits package is an easy-to-use framework for testing and comparing variou
 
 ## Algorithms
 Currently, the package implements the following algorithms:
-* ```UCB1(sample, nactions)``` (classic upper confidence bound algorithm)
-* ```MOSS(sample, nactions)``` (minimax optimial in the stochastic case algorithm) 
-* ```AOUCB(sample, nactions)``` (asymptotically optimal upper confidence bound algorithm)
-* ```ADA(sample, nactions)``` (adaptive upper confidence bound algorithm)
-* ```BTS(sample, nactions)``` (Thompson sampling algorithm for Bernoulli bandits)
-* ```EG(sample, nactions, epsilon)``` (epsilon-greedy algorithm)
+* ```agents.ucb.UCB1(sample, nactions)``` (classic upper confidence bound algorithm)
+* ```agents.ucb.MOSS(sample, nactions)``` (minimax optimial in the stochastic case algorithm) 
+* ```agents.ucb.AOUCB(sample, nactions)``` (asymptotically optimal upper confidence bound algorithm)
+* ```agents.ucb.ADA(sample, nactions)``` (adaptive upper confidence bound algorithm)
+* ```agents.ts.BTS(sample, nactions)``` (Thompson sampling algorithm for Bernoulli bandits)
+* ```agents.eg.EG(sample, nactions, epsilon)``` (epsilon-greedy algorithm)
 
 
 # Problem Setting
