@@ -77,7 +77,7 @@ from experiments import *
 from environments import *
 
 nsamples = 1000
-niterations = 100
+niterations = 500
 
 parameters = {1: 0.5, 2: 0.8}
 expectations = {1: 0.5, 2: 0.8}
