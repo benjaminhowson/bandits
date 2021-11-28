@@ -60,7 +60,7 @@ agent = ucb.UCB1(sample = sample, nactions = 2)
 # let the agent interact with the environment by selecting one-hundred actions
 history = agent.run(nsamples = 100, reset = False)
 ```
-The variable ```history``` is a dictionary containing the ordered sequence of actions. Also, ```history``` is a class variable, meaning you can access it via: ```agent.history```
+The variable ```history``` is a dictionary containing the ordered sequence of actions and the corresponding rewards. Also, ```history``` is a class variable, meaning you can access it via: ```agent.history```
 
 # Experiments
 
