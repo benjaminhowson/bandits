@@ -103,7 +103,7 @@ plot(results, width = 0.5)
 
 
 ## Custom Experiments
-If you would like to run simulations using different distributions and make use of: ```experiment()```  and ```plot()```, you must create a class using the following template:
+If you would like to run simulations using your own environment and make use of: ```experiment()```  and ```plot()```, you must create a class using the following template:
 
 ```python
 class Custom:
@@ -130,6 +130,6 @@ class Custom:
     '''
     pass
 ```
-We refer the user to the ```environments.py``` file of this repository for the Bernoulli bandit environment implementation using the above template.
+We refer the user to the ```environments.py``` file of this repository for the Bernoulli bandit environment implementation using the above template. Inclusion of the parameter ```time``` is necessary and allows for more complex feedback structures, such as: time-dependencies and delays. 
 
 
