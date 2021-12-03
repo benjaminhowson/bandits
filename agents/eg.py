@@ -2,7 +2,7 @@ import numpy as np
 import agents.agent as agent
 
 class EG(agent.Agent): 
-    def __init__(self, sample, nactions, epsilon = 0.2): 
+    def __init__(self, sample, nactions, epsilon = 0.05): 
         '''
         Description
         -----------

@@ -19,6 +19,19 @@ class UCB(agent.Agent):
         '''
         super().__init__(sample, nactions) # initialise parent class
 
+    def bonus(self, time, action): 
+        '''
+        Description
+        -----------
+        placeholder function for the upper confidence bound bonus
+        
+        Parameters
+        ----------
+        time (int) - total number of steps taken
+        action (int) - potential action at given time-step
+        '''
+        pass
+
     def policy(self, time): 
         '''
         Description
@@ -76,8 +89,6 @@ class UCB(agent.Agent):
 
             self.parameters[action]['n'] = n + 1
             self.parameters[action]['mu'] = mu + (r - mu)/(n + 1)
-
-
 
 class UCB1(UCB): 
     def __init__(self, sample, nactions):

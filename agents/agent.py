@@ -17,6 +17,32 @@ class Agent:
         self.nactions = nactions # initialise number of actions
         self.initialise() # initialise the learner
 
+    def policy(self, time): 
+        '''
+        Description
+        -----------
+        placeholder function for selecting the next action
+
+        Parameters
+        ----------
+        time (int) - total number of steps taken
+        '''
+    def initialise(self): 
+        '''
+        Description
+        -----------
+        placeholder function for initialising the parameters algorithm 
+        '''
+        pass
+
+    def update_parameters(self, feedback): 
+        '''
+        Description
+        -----------
+        placeholder function for updating the parameters algorithm 
+        '''
+        pass
+
     def run(self, nsamples, reset = False): 
         '''
         Description
