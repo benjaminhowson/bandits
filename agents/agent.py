@@ -27,6 +27,8 @@ class Agent:
         ----------
         time (int) - total number of steps taken
         '''
+        pass
+    
     def initialise(self): 
         '''
         Description
