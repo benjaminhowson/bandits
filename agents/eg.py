@@ -30,7 +30,7 @@ class EG(agent.Agent):
         ----------
         time (int) - total number of steps taken
         '''
-        uniform = np.random.uniform(low = 0, high = 1, size = 1)[0]
+        uniform = np.random.uniform(low = 0, high = 1)
         if uniform < self.epsilon: 
             return np.random.choice(self.actions)
 

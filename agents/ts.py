@@ -57,7 +57,6 @@ class BTS(agent.Agent):
         for action in self.actions: 
             self.parameters[action]['a'] = 1
             self.parameters[action]['b'] = 1
-            self.parameters[action]['size'] = 1
 
     def update_parameters(self, feedback): 
         '''

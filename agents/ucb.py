@@ -90,6 +90,35 @@ class UCB(agent.Agent):
             self.parameters[action]['n'] = n + 1
             self.parameters[action]['mu'] = mu + (r - mu)/(n + 1)
 
+
+class NUCB(UCB):
+    def __init__(self, sample, nactions):
+        '''
+        Description
+        -----------
+        class of functions for the classic upper confidence bound 
+        bandit algorithm that uses noise-based optimism to derive
+        the upper confidence bounds
+
+        Parameters
+        ---------- 
+        sample (func) - samples rewards
+                      - input: time (int), action (int)
+                      - output: {'time': [], 'action': [], 'reward': []}
+
+        nactions (int) - number of actions available to the learner 
+        
+        Reference
+        --------- 
+        '''
+        super().__init__(sample, nactions)
+
+    def bonus(self, time, action): 
+        n = self.parameters[action]['n']
+        delta = 1/pow(self.nsamples, 2)
+        sigma = np.sqrt(1/n)
+        return abs(np.random.normal(loc = 0.0, scale = sigma, size = 1)[0])
+
 class UCB1(UCB): 
     def __init__(self, sample, nactions):
         '''
