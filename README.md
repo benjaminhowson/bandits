@@ -130,6 +130,6 @@ class Custom:
     '''
     pass
 ```
-We refer the user to the ```environments.py``` file of this repository for the Bernoulli bandit environment implementation using the above template. Inclusion of the parameter ```time``` is necessary and allows for more complex feedback structures, such as: time-dependencies and delays. 
+We refer the user to the ```environments``` folder of this repository for the Bernoulli bandit environment implementation using the above template. Inclusion of the parameter ```time``` is necessary and allows for more complex feedback structures, such as: time-dependencies and delays. 
 
 
