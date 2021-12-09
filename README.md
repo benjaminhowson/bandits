@@ -74,7 +74,7 @@ import agents.ts as ts
 import agents.ucb as ucb
 
 from experiments import *
-from environments import *
+from environments.bernoulli import *
 
 nsamples = 1000
 niterations = 500
