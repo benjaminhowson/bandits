@@ -1,7 +1,7 @@
 import numpy as np
-import agents.agent as agent
+from agents.agent import *
 
-class EG(agent.Agent): 
+class EG(Agent): 
     def __init__(self, sample, nactions, epsilon = 0.05): 
         '''
         Description

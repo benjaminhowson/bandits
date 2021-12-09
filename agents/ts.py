@@ -1,7 +1,7 @@
 import numpy as np
-import agents.agent as agent
+from agents.agent import *
 
-class BTS(agent.Agent): 
+class BTS(Agent): 
     def __init__(self, sample, nactions): 
         '''
         Description

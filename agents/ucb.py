@@ -1,7 +1,7 @@
 import numpy as np
-import agents.agent as agent
+from agents.agent import *
 
-class UCB(agent.Agent): 
+class UCB(Agent): 
     def __init__(self, sample, nactions): 
         '''
         Description
